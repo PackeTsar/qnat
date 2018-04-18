@@ -66,7 +66,7 @@ class class_forwarder:
 
 
 
-def make_config(options, args):
+def make_config(options, args, parser):
 	global config
 	if options["config_file"]:
 		f = open(options["config_file"])
@@ -86,8 +86,10 @@ def make_config(options, args):
 					}
 				}
 		else:
-			print("ERROR: You must provide either: (a config file path) or (a destination IP, a destination port, and a listening port)")
+			print("ERROR: You must provide either: (a config file path) or (a destination IP, a destination port, and a listening port)\n\n")
+			parser.print_help()
 			sys.exit()
+
 
 
 
@@ -106,5 +108,5 @@ if __name__ == "__main__":
 		help="TCP port on the destination", metavar="DESTINATION_PORT")
 	(options, args) = parser.parse_args()
 	options = vars(options)
-	make_config(options, args)
+	make_config(options, args, parser)
 	startup()
